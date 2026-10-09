@@ -25,6 +25,9 @@ app.use('/api/profile',profile)
 const dash = require('./routes/dash')
 app.use('/api/dash',dash)
 
+const docnoe = require('./routes/doc')
+app.use('/api/doc',docnoe)
+
 //staff
 
 const member = require('./routes/Staff/member')

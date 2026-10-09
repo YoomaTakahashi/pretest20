@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 09, 2026 at 03:38 AM
+-- Generation Time: Oct 09, 2026 at 07:02 AM
 -- Server version: 8.0.46
 -- PHP Version: 8.3.35
 
@@ -53,6 +53,13 @@ CREATE TABLE `tb_eva` (
   `total_commit` double(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_eva`
+--
+
+INSERT INTO `tb_eva` (`id_eva`, `id_member`, `id_sys`, `status_eva`, `day_eva`, `total_eva`, `total_commit`) VALUES
+(1, 1, 1, 1, '2026-10-05', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +92,14 @@ CREATE TABLE `tb_indicate` (
   `check_indicate` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_indicate`
+--
+
+INSERT INTO `tb_indicate` (`id_indicate`, `id_topic`, `name_indicate`, `point_indicate`, `detail_indicate`, `check_indicate`) VALUES
+(3, 1, 'ทรมานคะแนน', 2, 'ระดับความน่ากลัว', 'y'),
+(4, 1, 'ตรวจสอบผล', 3, 'ตรวจสอบผลการประเมิน', 'n');
+
 -- --------------------------------------------------------
 
 --
@@ -102,6 +117,13 @@ CREATE TABLE `tb_member` (
   `pic_user` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_member`
+--
+
+INSERT INTO `tb_member` (`id_member`, `fname`, `lname`, `username`, `password`, `email`, `role`, `pic_user`) VALUES
+(1, 'supimon', 'supimon', 'supimon', '$2b$10$yGljPZ/sPFbvnytPEQJCSu4UTpcLpXaAx9uKyt/z7FCa0QjYPexw.', 'supimon@gmail.com', 'ผู้รับการประเมินผล', '1791517273253.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +139,13 @@ CREATE TABLE `tb_system` (
   `status_sys` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tb_system`
+--
+
+INSERT INTO `tb_system` (`id_sys`, `day_open`, `day_out`, `round_sys`, `year_sys`, `status_sys`) VALUES
+(1, '2026-10-01', '2035-10-11', 1, 2569, 'y');
+
 -- --------------------------------------------------------
 
 --
@@ -127,6 +156,13 @@ CREATE TABLE `tb_topic` (
   `id_topic` int NOT NULL,
   `name_topic` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_topic`
+--
+
+INSERT INTO `tb_topic` (`id_topic`, `name_topic`) VALUES
+(1, 'กายภาพ');
 
 --
 -- Indexes for dumped tables
@@ -188,7 +224,7 @@ ALTER TABLE `tb_commit`
 -- AUTO_INCREMENT for table `tb_eva`
 --
 ALTER TABLE `tb_eva`
-  MODIFY `id_eva` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_eva` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_evadetail`
@@ -200,25 +236,25 @@ ALTER TABLE `tb_evadetail`
 -- AUTO_INCREMENT for table `tb_indicate`
 --
 ALTER TABLE `tb_indicate`
-  MODIFY `id_indicate` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_indicate` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_member`
 --
 ALTER TABLE `tb_member`
-  MODIFY `id_member` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_member` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_system`
 --
 ALTER TABLE `tb_system`
-  MODIFY `id_sys` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sys` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_topic`
 --
 ALTER TABLE `tb_topic`
-  MODIFY `id_topic` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_topic` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

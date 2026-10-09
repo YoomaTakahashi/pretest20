@@ -54,8 +54,13 @@
                                     <td class="text-center border">{{ index+1 }}</td>
                                     <td class="text-center border">{{ items.fname }} {{ items.lname }}</td>
                                     <td class="text-center border">{{ items.email }}</td>
-                                    <td class="text-center border"></td>
-                                    <td class="text-center border"></td>
+                                    <td class="text-center border">{{ items.username }}</td>
+                                    <td class="text-center border">
+                                        <center>
+                                            <v-btn class="text-center text-white ma-2" color="warning" @click="edit(items)">แก้ไข</v-btn>
+                                            <v-btn class="text-center text-white ma-2" color="error" @click="del(items.id_member)">ลบ</v-btn>
+                                        </center>
+                                    </td>
                                 </tr>
                             </tbody>
                         </v-table>
@@ -68,17 +73,16 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import { api } from '~/API/base'
+import { api, staff } from '~/API/base'
 
 
 const error = ref<Record<string,string>>({})
 const pic_user = ref<File | null>(null)
-const conP = ref('')
+const search = ref('')
+const dataResult = ref([])
 const typeR = ['ผู้รับการประเมินผล'] 
 const show = ref(false)
-const show2 = ref(false)
 const showPw = ref(false)
-const showPw2 = ref(false)
 const form = ref({
     id_member:null,
     fname:'',
@@ -89,6 +93,17 @@ const form = ref({
     role:''
 })
 
+const reset= ()=>{
+    form.value = {
+        id_member:null,
+        fname:'',
+        lname:'',
+        email:'',
+        username:'',
+        password:'',
+        role:''
+    }
+}
 
 const emailRegex = /^[^\s]+@[^\s]+\.[^\s]{2,}$/i
 function validateForm(){
@@ -111,24 +126,73 @@ function validateForm(){
     return Object.keys(error.value).length === 0
 
 }
+const token = import.meta.client ? localStorage.getItem('token'):null
 
 const saveMember = async()=>{
 
     if(!validateForm())return
-    const formdata = new FormData
-    formdata.append('form',JSON.stringify(form.value))
-    formdata.append('pic_user',pic_user.value!)
+    const f = form.value
+    const payload = {
+        fname:f.fname,
+        lname:f.lname,
+        email:f.email,
+        username:f.username,
+        password:f.password,
+        role:f.role,
+        ...(f.password ? {password:f.password}:null)
+    }
     try {
-        await axios.post(`${api}/auth/regis`,formdata)
+        f.id_member
+        ? await axios.put(`${staff}/member/update/${f.id_member}`,payload,{headers:{Authorization:`Bearer ${token}`}})
+        : await axios.post(`${staff}/member/save`,{...payload,password:f.password},{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
-        navigateTo('/',{replace: true})
+        await reset()
+        await fetch()
     } catch (error) {
-        console.error("Error regis",error);
+        console.error("Error save",error);
         
     }
 
 }
 
+const fetch = async()=>{
+    try {
+        const res = await axios.get(`${staff}/member/showE`,{headers:{Authorization:`Bearer ${token}`}})
+        dataResult.value = res.data
+    } catch (error) {
+        console.error("Error get",error);
+        
+    }
+}
+
+const edit = (items:any)=>{
+
+    form.value = {...items}
+
+}
+
+const del = async(id_member:number)=>{
+    if(!confirm("ต้องการลบข้อมูลชุดนี้ใช่หรือไม่"))return
+    try {
+        await axios.delete(`${staff}/member/delete/${id_member}`,{headers:{Authorization:`Bearer ${token}`}})
+        await fetch()
+        await reset()
+    } catch (error) {
+        console.error("error delete",error);
+        
+    }
+}
+
+const result = computed(()=>{
+    if(!search.value)return dataResult.value
+    const s = search.value.toLowerCase()
+
+    return dataResult.value.filter((items:any)=>{
+        items.username.toLowerCase().includes(s)
+    })
+})
+
+onMounted(fetch)
 
 </script>
 

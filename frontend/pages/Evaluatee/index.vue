@@ -26,11 +26,13 @@ const box = ref([])
 const fetch = async()=>{
     const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(``)
+        const res = await axios.get(`${api}/dash/eva`,{headers:{Authorization:`Bearer ${token}`}})
+        box.value = res.data.box
     } catch (error) {
-        
+        console.error('error get box',error)
     }
 }
+onMounted(fetch)
 </script>
 
 <style scoped>

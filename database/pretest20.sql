@@ -62,7 +62,7 @@ CREATE TABLE `tb_eva` (
 CREATE TABLE `tb_evadetail` (
   `id_detail` int NOT NULL,
   `id_eva` int NOT NULL,
-  `id_indicate` int NOT NULL,
+  `id_system` int NOT NULL,
   `status_eva` int NOT NULL,
   `detail_eva` text,
   `score_member` int DEFAULT NULL,
@@ -151,10 +151,10 @@ ALTER TABLE `tb_evadetail`
   ADD PRIMARY KEY (`id_detail`);
 
 --
--- Indexes for table `tb_indicate`
+-- Indexes for table `tb_system`
 --
-ALTER TABLE `tb_indicate`
-  ADD PRIMARY KEY (`id_indicate`);
+ALTER TABLE `tb_system`
+  ADD PRIMARY KEY (`id_system`);
 
 --
 -- Indexes for table `tb_member`
@@ -197,10 +197,10 @@ ALTER TABLE `tb_evadetail`
   MODIFY `id_detail` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tb_indicate`
+-- AUTO_INCREMENT for table `tb_system`
 --
-ALTER TABLE `tb_indicate`
-  MODIFY `id_indicate` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tb_system`
+  MODIFY `id_system` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_member`

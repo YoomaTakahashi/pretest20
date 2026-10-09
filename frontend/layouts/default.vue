@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar>
+        <v-app-bar :color="bg(user.role)" flat :elevation="5">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="font-weight-bold">NTC Evaluation System</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -9,19 +9,20 @@
             <v-btn icon="mdi-logout" varaint="text" @click="logout" ></v-btn>
         </v-app-bar>
 
-        <v-navigation-drawer v-model="drawer" width="260" color="#404040" :temporary="isMobile" :permanent="!isMobile">
+        <v-navigation-drawer v-model="drawer" width="260" elevation="3" color="#404040" :temporary="isMobile" :permanent="!isMobile">
             <v-list density="comfortable">
                 <v-list-item >
                     <v-list-item-title class="font-weight-bold"> NTC Evaluation System</v-list-item-title>
-                    <div class="mt-3 font-weight-bold" :style="{color:bg(user.role)} ">
-                        {{ user.role }}
+                    <div class="mt-3 font-weight-bold d-flex justify-left">
+                        <v-chip variant="outlined" class="text-white"><h4>{{ user.role }}</h4></v-chip>
                     </div>
                 </v-list-item>
             </v-list>
-            <v-divider></v-divider>
+            <v-divider color="white" opacity="0.5" ></v-divider>
 
             <v-list density="comfortable">
                 <v-list-item v-for="item in navitem" :key="item.title" :to="item.to" >
+                    
                     <v-list-item-title class="font-weight-bold">
                         {{ item.title }}
                     </v-list-item-title>
@@ -60,7 +61,7 @@ const roles = [
     {title:'จัดการผู้รับการประเมิน',to:'/Staff/Manage_eva',role:'ฝ่ายบุคลากร'},
     {title:'จัดการกรรมการประเมิน',to:'/Staff/Manage_commit',role:'ฝ่ายบุคลากร'},
     {title:'จัดการหัวข้อการประเมิน',to:'/Staff/Topic',role:'ฝ่ายบุคลากร'},
-    {title:'จัดการตัวชี้วัด',to:'/Staff/Indicate',role:'ฝ่ายบุคลากร'},
+    {title:'จัดการตัวชี้วัด',to:'/Staff/indicate',role:'ฝ่ายบุคลากร'},
     {title:'จัดการรอบการประเมิน',to:'/Staff/Round',role:'ฝ่ายบุคลากร'},
     {title:'จัดการแบบประเมิน',to:'/Staff/Eva',role:'ฝ่ายบุคลากร'},
     {title:'ผลการประเมินของผู้รับการประเมินผล',to:'/Staff/Score_evaList',role:'ฝ่ายบุคลากร'},
@@ -102,9 +103,20 @@ onMounted(fetch)
 
 const bg = (role:string) =>{
     if(role === 'ฝ่ายบุคลากร')return '#647687'
-    if(role === 'กรรมการประเมิน')return '007FFF'
-    if(role === 'ผู้รับการประเมินผล')return '7d0c14'
+    if(role === 'กรรมการประเมิน')return '#007FFF'
+    if(role === 'ผู้รับการประเมินผล')return '#7d0c14'
 }
+
+const navbg = (role:string) =>{
+    if(role === 'ฝ่ายบุคลากร')return '#647687'
+    if(role === 'กรรมการประเมิน')return '#007FFF'
+    if(role === 'ผู้รับการประเมินผล')return '#530000'
+}
+// const text = (role:string) =>{
+//     if(role === 'ฝ่ายบุคลากร')return '#647687'
+//     if(role === 'กรรมการประเมิน')return '#007FFF'
+//     if(role === 'ผู้รับการประเมินผล')return '#D70000'
+// }
 </script>
 
 <style scoped>

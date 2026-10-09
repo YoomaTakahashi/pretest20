@@ -4,7 +4,7 @@
             <v-col cols="12" md="12">
                 <v-card>
                     <v-card-title>
-                        <h1 class="text-center text-h5">จัดการผู้รับการประเมินผล</h1>
+                        <h1 class="text-center text-h5">จัดการกรรมการประเมิน</h1>
                     </v-card-title>
                     <v-card-text>
                         <br>
@@ -83,7 +83,7 @@ const error = ref<Record<string,string>>({})
 const pic_user = ref<File | null>(null)
 const search = ref('')
 const dataResult = ref([])
-const typeR = ['ผู้รับการประเมินผล'] 
+const typeR = ['กรรมการประเมิน'] 
 const show = ref(false)
 const showPw = ref(false)
 const form = ref({
@@ -160,7 +160,7 @@ const saveMember = async()=>{
 
 const fetch = async()=>{
     try {
-        const res = await axios.get(`${staff}/member/showE`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/member/showC`,{headers:{Authorization:`Bearer ${token}`}})
         dataResult.value = res.data
     } catch (error) {
         console.error("Error get",error);

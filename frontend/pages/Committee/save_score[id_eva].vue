@@ -61,8 +61,8 @@ const fetchUser = async () =>{
     try{
         const res = await axios.get(`${commit}/save_score/user/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         user.value = res.data
-    }catch(err){
-        console.error('Error Get Profile!',err)
+    }catch(error){
+        console.error('Error Get Profile!',error)
     }
 }
 const fetchTopics = async () =>{
@@ -70,8 +70,8 @@ const fetchTopics = async () =>{
     try{
         const res = await axios.get(`${commit}/save_score/topic/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         topics.value = res.data
-    }catch(err){
-        console.error('Error Get Profile!',err)
+    }catch(error){
+        console.error('Error Get Profile!',error)
     }
 }
 onMounted(async () =>{
@@ -107,8 +107,8 @@ const saveScore = async () =>{
         alert('ประเมินสำเร็จ')
         await Promise.all([fetchUser(),fetchTopics()])
         navigateTo('/Committee/Check_confirm',{replace:true})
-    }catch(err){
-        console.error('Error POST Score!',err)
+    }catch(error){
+        console.error('Error POST Score!',error)
     }
 }
 </script>

@@ -17,9 +17,6 @@
                                     <th class="boder pa-1 bg-grey" style="width: 10%;">รายละเอียดตัวชี้วัด</th>
                                     <th class="boder pa-1 bg-grey" style="width: 10%;">น้ำหนักคะแนน</th>
                                     <th class="boder pa-1 bg-grey" style="width: 10%;">คะแนนเต็ม</th>
-                                    <th class="boder pa-1 bg-grey" style="width: 10%;">ประธาน</th>
-                                    <th class="boder pa-1 bg-grey" style="width: 10%;">กรรมการ</th>
-                                    <th class="boder pa-1 bg-grey" style="width: 10%;">เลขา</th>
                                     <th class="boder pa-1 bg-grey" style="width: 10%;">คะแนนที่ได้</th>
 
                                 </tr>
@@ -28,9 +25,6 @@
                                     <td class="boder pa-1 text-center" style="width: 10%;">{{ indicate.detail_indicate }}</td>
                                     <td class="boder pa-1 text-center" style="width: 10%;">{{ indicate.point_indicate }}</td>
                                     <td class="boder pa-1 text-center" style="width: 10%;">{{ indicate.point_indicate*4 }}</td>
-                                    <td class="boder pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?. a ?? 'รอประธานประเมิน' }}</td>
-                                    <td class="boder pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?. b ?? 'รอกรรมการประเมิน' }}</td>
-                                    <td class="boder pa-1 text-center" style="width: 10%;">{{ scores[indicate.id_indicate]?. c ?? 'รอเลขาประเมิน' }}</td>
                                     <td class="boder pa-1 text-center" style="width: 10%;">{{ (((scores[indicate.id_indicate]?. a ?? 0)+(scores[indicate.id_indicate]?. b ?? 0)+(scores[indicate.id_indicate]?. c ?? 0))/3).toFixed(2) }}</td>
                                 </tr>
                             </v-table>
@@ -44,10 +38,15 @@
                             <label for="">ข้อเสนอแนะของกรรมการ</label>
                             <v-row>
                                 <v-col v-for="commit,c in commits" :key="commit.id_commit" cols="12">
-                                    {{ c+1 }}.{{ commit.level_commit }} : {{ commit.detail_commit || 'รอการประเมิน' }}
+                                    <img :src="`http://localhost:3001/signature/${commit.signature}`" :alt="`รอ${commit.level_commit}ประเมิน`" width="20%"> <br>
+                                        (( {{ commit.fname }} {{ commit.lname }})) <br>
+                                        {{ commit.level_commit }}
                                 </v-col>
                             </v-row>
                         </v-card>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <v-btn color="warning" class="no-p" @click="print">พิมพ์</v-btn>
                     </div>
                 </v-form>
                 <v-alert variant="tonal" type="warning" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
@@ -65,6 +64,10 @@ const user = ref<any>({})
 const topics = ref<any>({})
 const scores = ref<any>({})
 const commits = ref<any>({})
+
+const print = ()=>{
+    window.print()
+}
 
 const fecth = async()=>{
     const token =  localStorage.getItem('token')

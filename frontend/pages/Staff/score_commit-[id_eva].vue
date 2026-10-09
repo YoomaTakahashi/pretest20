@@ -40,14 +40,14 @@
                         <v-card color="green">คะแนนรวมสุทธิ : {{ ((user.total_commit)/3).toFixed(2) }} คะแนน</v-card>
                     </div>
                     <div class="mt-3">
-                        <v-card class="pa-2">
-                            <label for="">ข้อเสนอแนะของกรรมการ</label>
+                        <v-row>
+                            <label for="">ข้อเสนอแนะของกรรมการประเมิน</label>
                             <v-row>
-                                <v-col v-for="commit,c in commits" :key="commit.id_commit" cols="12">
-                                    {{ c+1 }}.{{ commit.level_commit }} : {{ commit.detail_commit || 'รอการประเมิน' }}
+                                <v-col cols="12" v-for="commit,c in commits" :key="commit.id_commit">
+                                    {{ c+1 }} {{ commit.level_commit }} : {{ commit.detail_commit || 'รอการประเมิน' }} 
                                 </v-col>
                             </v-row>
-                        </v-card>
+                        </v-row>
                     </div>
                 </v-form>
                 <v-alert variant="tonal" type="warning" v-else-if="user.status_eva === 1">ยังไม่ได้ประเมินตนเอง</v-alert>
@@ -59,17 +59,17 @@
 
 <script setup lang="ts">
 import axios, { formToJSON } from 'axios';
-import { eva } from '~/API/base';
+import { eva, staff } from '~/API/base';
 
 const user = ref<any>({})
 const topics = ref<any>({})
 const scores = ref<any>({})
 const commits = ref<any>({})
-
+const id_eva = useRoute().params.id_eva
 const fecth = async()=>{
     const token =  localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/selfeva/user`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/score_commit/user/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         user.value = res.data
     } catch (error) {
         console.error("Error get member",error);
@@ -78,7 +78,7 @@ const fecth = async()=>{
 const fecthTopic = async()=>{
     const token =  localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/selfeva/topic`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/score_commit/topic`,{headers:{Authorization:`Bearer ${token}`}})
         topics.value = res.data
     } catch (error) {
         console.error("Error get member",error);
@@ -87,7 +87,7 @@ const fecthTopic = async()=>{
 const fecthcomit = async()=>{
     const token =  localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/score_commit/commit`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/score_commit/commit/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         commits.value = res.data
     } catch (error) {
         console.error("Error get member",error);
@@ -96,7 +96,7 @@ const fecthcomit = async()=>{
 const fecthscores = async()=>{
     const token =  localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/score_commit/score`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${eva}/score_commit/score/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
         scores.value = res.data
     } catch (error) {
         console.error("Error get member",error);

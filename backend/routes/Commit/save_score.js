@@ -61,7 +61,7 @@ router.post('/save/:id_eva',verifyToken,requireRole('กรรมการปร
         await db.query(`update tb_commit set detail_commit=?,status_commit=? where id_eva=? and id_member=?`,[detail_commit,'y',id_eva,id_member])
         
         res.json({message:'POST Score Success'})
-    }catch(err){
+    }catch(error){
         console.error("Error POST Score",err)
         res.status(500).json({message:'Error POST Score'})
     }

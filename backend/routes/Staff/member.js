@@ -52,7 +52,7 @@ router.delete('/delete/:id_member',verifyToken,requireRole('ฝ่ายบุ�
 router.get('/showE',verifyToken,requireRole('ฝ่ายบุคลากร'),async(req,res)=>{
     try {
         
-            const [rows] = await db.query(`select * from tb_member where role='ผู้รับการประเมินผล'`)
+            const [rows] = await db.query(`select * from tb_member where role='ผู้รับการประเมินผล' order by id_member desc`)
             res.json(rows)
 
     } catch (error) {
@@ -64,7 +64,7 @@ router.get('/showE',verifyToken,requireRole('ฝ่ายบุคลากร')
 router.get('/showC',verifyToken,requireRole('ฝ่ายบุคลากร'),async(req,res)=>{
     try {
         
-            const [rows] = await db.query(`select * from tb_member where role='กรรมการประเมิน'`)
+            const [rows] = await db.query(`select * from tb_member where role='กรรมการประเมิน' order by id_member desc`)
             res.json(rows)
 
     } catch (error) {

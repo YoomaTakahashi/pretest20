@@ -22,11 +22,37 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+const dash = require('./routes/dash')
+app.use('/api/dash',dash)
+
+const docnoe = require('./routes/doc')
+app.use('/api/doc',docnoe)
+
 //staff
 
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
 
+const topic = require('./routes/Staff/topic')
+app.use('/api/Staff/topic',topic)
+
+const indicate = require('./routes/Staff/indicate')
+app.use('/api/Staff/indicate',indicate)
+
+const system = require('./routes/Staff/system')
+app.use('/api/Staff/system',system)
+
+const eva = require('./routes/Staff/eva')
+app.use('/api/Staff/eva',eva)
+
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
+const score_member2 = require('./routes/Staff/score_member')
+app.use('/api/Staff/score_member',score_member2)
+
+const doc = require('./routes/Staff/doc')
+app.use('/api/Staff/doc',doc)
 //eva
 
 const edit_eva =require('./routes/Eva/edit_eva')
@@ -41,6 +67,9 @@ app.use('/api/Eva/score_member',score_member)
 //คอมมิท
 const show_eva = require('./routes/Commit/show_eva')
 app.use('/api/Commit/show_eva',show_eva)
+
+const save_score = require('./routes/Commit/save_score')
+app.use('/api/Commit/save_score',save_score)
 
 
 app.use((req,res)=> res.status(404).json({message:"Route Not found"}))

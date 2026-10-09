@@ -30,6 +30,26 @@ app.use('/api/dash',dash)
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
 
+const topic = require('./routes/Staff/topic')
+app.use('/api/Staff/topic',topic)
+
+const indicate = require('./routes/Staff/indicate')
+app.use('/api/Staff/indicate',indicate)
+
+const system = require('./routes/Staff/system')
+app.use('/api/Staff/system',system)
+
+const eva = require('./routes/Staff/eva')
+app.use('/api/Staff/eva',eva)
+
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
+const score_member2 = require('./routes/Staff/score_member')
+app.use('/api/Staff/score_member',score_member2)
+
+const doc = require('./routes/Staff/doc')
+app.use('/api/Staff/doc',doc)
 //eva
 
 const edit_eva =require('./routes/Eva/edit_eva')

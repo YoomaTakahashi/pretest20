@@ -14,7 +14,7 @@
                                     <v-select label="ผู้รับการประเมินผล" v-model="form.id_member" :error-messages="error.id_member" :items="eva.map((t)=>({title:`${t.fname} ${t.lname}`,value:t.id_member}))"></v-select>
                                 </v-col>
                                 <v-col cols="12" md="6">
-                                    <v-select label="รอบการประเมิน" v-model="form.id_sys" :error-messages="error.id_sys" :items="round.map((t)=>({title:`รอบการประเมินที่:${t.round_sys} ปี:${t.year_sys}`,value:t.id_member}))"></v-select>
+                                    <v-select label="รอบการประเมิน" v-model="form.id_sys" :error-messages="error.id_sys" :items="round.map((t)=>({title:`รอบการประเมินที่:${t.round_sys} ปี:${t.year_sys}`,value:t.id_sys}))"></v-select>
                                 </v-col>
                                 <v-col cols="12" md="12">
                                     <v-text-field label="วันที่ออกแบบประเมิน" v-model="form.day_eva" :error-messages="error.day_eva" type="date"></v-text-field>
@@ -44,9 +44,9 @@
                             <tbody>
                                 <tr v-for="(items,index) in result" :key="items.id_eva">
                                     <td class="text-center border">{{ index+1 }}</td>
-                                    <td class="text-center border">{{ formatDate(items.day_eva) }}</td>
                                     <td class="text-center border">{{ items.fname }} {{ items.lname }}</td>
                                     <td class="text-center border">รอบการประเมินที่:{{items.round_sys}} ปี:{{ items.year_sys }}</td>
+                                    <td class="text-center border">{{ formatDate(items.day_eva) }}</td>
                                     <td class="text-center border">
                                        <v-btn class="text-center text-white ma-2" color="success" @click="go(items.id_eva)">เพิ่มกรรมการ</v-btn> 
                                     </td>
@@ -168,14 +168,19 @@ const del = async(id_eva:number)=>{
     }
 }
 
-// const result = computed(()=>{
-//     if(!search.value)return dataResult.value
-//     const s = search.value.toLowerCase()
+const result = computed(()=>{
+    if(!search.value)return dataResult.value
+    const s = search.value.toLowerCase()
 
-//     return dataResult.value.filter((items:any)=>{
-//         items.name_system.toLowerCase().includes(s)
-//     })
-// })
+    return dataResult.value.filter((items:any)=>{
+        items.fname.toLowerCase().includes(s) || 
+        items.lname.toLowerCase().includes(s) 
+    })
+})
+
+const go = (id_eva:number)=>{
+    navigateTo({path:`/Staff/commit-eva-${id_eva}`})
+}
 
 onMounted(fetch)
 

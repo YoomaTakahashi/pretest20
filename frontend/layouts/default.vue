@@ -72,12 +72,12 @@ const roles = [
     {title:'รายงาน',to:'/Staff/Report',role:'ฝ่ายบุคลากร'},
     {title:'การสำรองข้อมูล',to:'/Staff/backup',role:'ฝ่ายบุคลากร'},
 
-    {title:'หน้าหลัก',to:'/Evalautee/',role:'ผู้รับการประเมินผล'},
-    {title:'แก้ไขข้อมูลส่วนตัว',to:'/Evalautee/edit_eva',role:'ผู้รับการประเมินผล'},
-    {title:'แบบประเมินตนเอง',to:'/Evalautee/selfeva',role:'ผู้รับการประเมินผล'},
-    {title:'ตรวจสอบผลการประเมิน',to:'/Evalautee/check_score',role:'ผู้รับการประเมินผล'},
-    {title:'รายงาน',to:'/Evalautee/report',role:'ผู้รับการประเมินผล'},
-    {title:'คุ่มือการประเมิน',to:'/Evalautee/doc',role:'ผู้รับการประเมินผล'},
+    {title:'หน้าหลัก',to:'/Evaluatee/',role:'ผู้รับการประเมินผล'},
+    {title:'แก้ไขข้อมูลส่วนตัว',to:'/Evaluatee/edit_eva',role:'ผู้รับการประเมินผล'},
+    {title:'แบบประเมินตนเอง',to:'/Evaluatee/selfeva',role:'ผู้รับการประเมินผล'},
+    {title:'ตรวจสอบผลการประเมิน',to:'/Evaluatee/check_score',role:'ผู้รับการประเมินผล'},
+    {title:'รายงาน',to:'/Evaluatee/report',role:'ผู้รับการประเมินผล'},
+    {title:'คุ่มือการประเมิน',to:'/Evaluatee/doc',role:'ผู้รับการประเมินผล'},
 
     {title:'รายชื่อผู้รับการประเมินผล',to:'/Committee/',role:'กรรมการประเมิน'},
     {title:'ดำเนินการประเมิน',to:'/Committee/show_eva',role:'กรรมการประเมิน'},

@@ -35,7 +35,7 @@
                             <v-row>
                                 <v-col cols="12" md="12">
                                     <center>
-                                        <v-btn class="text-center ma-2" color="primary" type="submit">สมัครสมาชิก</v-btn>
+                                        <v-btn class="text-center ma-2" color="primary" type="submit">แก้ไข</v-btn>
                                         <v-btn class="text-center ma-2" color="error" type="reset">ยกเลิก</v-btn>
                                     </center>
                                 </v-col>

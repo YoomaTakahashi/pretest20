@@ -127,7 +127,7 @@ const saveMember = async()=>{
     if(!validateForm())return
     const f = form.value
     try {
-        await axios.post(`${staff}/indicate/save`,form.value,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.post(`${staff}/system/save`,form.value,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
         await reset()
         await fetch()
@@ -140,7 +140,7 @@ const saveMember = async()=>{
 
 const fetch = async()=>{
     try {
-        const res = await axios.get(`${staff}/indicate/show`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/system/show`,{headers:{Authorization:`Bearer ${token}`}})
         result.value = res.data
     } catch (error) {
         console.error("Error get",error);
@@ -166,7 +166,7 @@ const formatDate = (dateStr:string)=>{
 const del = async(id_sys:number)=>{
     if(!confirm("ต้องการลบข้อมูลชุดนี้ใช่หรือไม่"))return
     try {
-        await axios.delete(`${staff}/indicate/delete/${id_sys}`,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.delete(`${staff}/system/delete/${id_sys}`,{headers:{Authorization:`Bearer ${token}`}})
         await fetch()
         await reset()
     } catch (error) {

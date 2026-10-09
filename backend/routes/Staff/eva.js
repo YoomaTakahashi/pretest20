@@ -7,7 +7,7 @@ const router = express.Router()
 router.post('/save',verifyToken,requireRole('ฝ่ายบุคลากร'),async(req,res)=>{
     try {
         const {id_member,id_sys,day_eva} = req.body
-        const [rows] = await db.query(`insert into tb_eva(id_member,id_sys,day_eva,status_eva) values(?,?,?)`,[id_member,id_sys,day_eva,1])
+        const [rows] = await db.query(`insert into tb_eva(id_member,id_sys,day_eva,status_eva) values(?,?,?,?)`,[id_member,id_sys,day_eva,1])
         res.json(rows)
     } catch (error) {
         console.error("Error save",error);
@@ -20,7 +20,7 @@ router.put('/update/:id_eva',verifyToken,requireRole('ฝ่ายบุคล�
         const {id_member,id_sys,day_eva} = req.body
         const {id_eva} = req.params
         
-        const [rows] = await db.query(`update tb_eva set id_membe=?r,id_sys=?,day_eva=? where id_eva = ?`,[id_member,id_sys,day_eva,id_eva])
+        const [rows] = await db.query(`update tb_eva set id_member=?,id_sys=?,day_eva=? where id_eva = ?`,[id_member,id_sys,day_eva,id_eva])
         res.json(rows)
 
     } catch (error) {
@@ -45,7 +45,7 @@ router.delete('/delete/:id_eva',verifyToken,requireRole('ฝ่ายบุค�
 router.get('/show',verifyToken,requireRole('ฝ่ายบุคลากร'),async(req,res)=>{
     try {
         
-            const [rows] = await db.query(`select * from tb_eva order by id_eva desc`)
+            const [rows] = await db.query(`select * from tb_eva e,tb_member m,tb_system s where e.id_member = m.id_member and s.id_sys = e.id_sys order by id_eva desc`)
             res.json(rows)
 
     } catch (error) {

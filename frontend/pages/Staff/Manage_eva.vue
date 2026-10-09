@@ -93,6 +93,17 @@ const form = ref({
     role:''
 })
 
+const reset= ()=>{
+    form.value = {
+        id_member:null,
+        fname:'',
+        lname:'',
+        email:'',
+        username:'',
+        password:'',
+        role:''
+    }
+}
 
 const emailRegex = /^[^\s]+@[^\s]+\.[^\s]{2,}$/i
 function validateForm(){
@@ -133,16 +144,55 @@ const saveMember = async()=>{
     try {
         f.id_member
         ? await axios.put(`${staff}/member/update/${f.id_member}`,payload,{headers:{Authorization:`Bearer ${token}`}})
-        : await axios.post(``)
+        : await axios.post(`${staff}/member/save`,{...payload,password:f.password},{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
-        navigateTo('/',{replace: true})
+        await reset()
+        await fetch()
     } catch (error) {
-        console.error("Error regis",error);
+        console.error("Error save",error);
         
     }
 
 }
 
+const fetch = async()=>{
+    try {
+        const res = await axios.get(`${staff}/member/showE`,{headers:{Authorization:`Bearer ${token}`}})
+        dataResult.value = res.data
+    } catch (error) {
+        console.error("Error get",error);
+        
+    }
+}
+
+const edit = (items:any)=>{
+
+    form.value = {...items}
+
+}
+
+const del = async(id_member:number)=>{
+    if(!confirm("ต้องการลบข้อมูลชุดนี้ใช่หรือไม่"))return
+    try {
+        await axios.delete(`${staff}/member/delete/${id_member}`,{headers:{Authorization:`Bearer ${token}`}})
+        await fetch()
+        await reset()
+    } catch (error) {
+        console.error("error delete",error);
+        
+    }
+}
+
+const result = computed(()=>{
+    if(!search.value)return dataResult.value
+    const s = search.value.toLowerCase()
+
+    return dataResult.value.filter((items:any)=>{
+        items.username.toLowerCase().includes(s)
+    })
+})
+
+onMounted(fetch)
 
 </script>
 

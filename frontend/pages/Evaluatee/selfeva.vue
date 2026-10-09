@@ -2,7 +2,7 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <v-form @submit.prevent="saveScore">
+                <v-form v-if="user.status_eva === 1" @submit.prevent="saveScore">
                     <h1 class="font-weight-bold">แบบประเมินตนเอง</h1>
                     <v-card class="pa-5 py-2 " rounded elevation="5">
                      <p >คุณ : {{ user.fname }} {{ user.lname }} </p>
@@ -28,6 +28,8 @@
                         <v-btn color="blue" type="submit" class="no-p">บันทึกคะแนน</v-btn>
                     </div>
                 </v-form>
+                <v-alert variant="tonal" type="success" v-else-if="user.status_eva === 2 || user.status_eva === 3">ประเมินสำเร็จ</v-alert>
+                <v-alert variant="tonal" type="error" v-else>ไม่มีแบบประเมิน</v-alert>
             </v-col>
         </v-row>
     </v-container>
@@ -65,7 +67,7 @@ onMounted(async()=>{
 
 const fileMap = ref<Record<string,File>>({})
 const onFilechange = (event:Event,id_topic:number,id_indicate:number)=>{
-    const file = (event.target as HTMLInputElement)?.files?.[1]
+    const file = (event.target as HTMLInputElement)?.files?.[0]
     if(!file)return
     fileMap.value[`${id_topic}-${id_indicate}`] = file
 }
